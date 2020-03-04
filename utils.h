@@ -16,7 +16,7 @@
 #endif
 
 #ifdef UTILS_STM32
-#include <stm32f3xx_hal.h>
+#include <main.h>
 #endif
 
 #ifndef UTILS_H
