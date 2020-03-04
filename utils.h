@@ -15,6 +15,10 @@
 #include "lwip.h"
 #endif
 
+#ifdef UTILS_STM32
+#include <stm32f3xx_hal.h>
+#endif
+
 #ifndef UTILS_H
 #define UTILS_H
 
@@ -24,15 +28,15 @@
  * @param i Value
  * @return Absolute value
  */
-__weak inline
+/*__weak inline
 unsigned int abs(int i){
 	return i<0?i*-1:i;
-}
+}*/
 
 /**
  * @brief Linear regression.
  */
-__weak inline
+inline
 int lin_reg(int a, int b, int dx, int x) {
 	if(x == 0) return a;
 	if(x >= dx) return b;
@@ -48,15 +52,16 @@ int lin_reg(int a, int b, int dx, int x) {
  * @param i number
  * @param d divider
  */
-__weak inline
+inline
 int mod_iter(int i, int d) {
 	while(i >= d) {
 		i -= d;
 	}
+
 	return i;
 }
 
-__weak inline
+inline
 int limit_i(int x, int min, int max) {
 	if(x < min) return min;
 	if(x > max) return max;
@@ -65,7 +70,7 @@ int limit_i(int x, int min, int max) {
 #endif
 
 #ifdef UTILS_STM32
-__weak inline
+inline
 void __timer_set(TIM_HandleTypeDef* tim, uint32_t ch, double frq, double dty) {
 	__IO uint16_t autoload = round(1000000.0/(double)frq);
 	__IO uint16_t compare  = round(((double)dty/100.0)*autoload);
@@ -75,7 +80,7 @@ void __timer_set(TIM_HandleTypeDef* tim, uint32_t ch, double frq, double dty) {
 #endif
 
 #ifdef UTILS_BINARY
-__weak inline
+inline
 unsigned int del_bits(uint val, uint offset, uint len) {
 	uint mask = ~0 << offset;      // ...11110000...
 	mask &= ~(~0 << (offset+len)); // ...11110000... & ...01111111... --> ...01110000...
@@ -89,7 +94,7 @@ unsigned int del_bits(uint val, uint offset, uint len) {
  * @param amt   Number of bits
  * @return Bit sequence
  */
-__weak inline
+inline
 unsigned int get_bits(uint8_t* data, int start, int amt) {
 	div_t begin = div(start, 8);
 	int index = begin.quot;
@@ -115,7 +120,7 @@ unsigned int get_bits(uint8_t* data, int start, int amt) {
  * @param amt   Number of bits
  * TODO Testing!
  */
-__weak inline
+inline
 void set_bits(uint8_t* data, unsigned int val, int start, int amt) {
 	div_t begin = div(start, 8);
 	int index = begin.quot;
