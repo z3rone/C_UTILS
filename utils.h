@@ -104,8 +104,13 @@ unsigned int get_bits(uint8_t* data, int start, int amt) {
 	int bytes = end.quot;
 
 	int val = 0;
-	for(int i = 0; i < bytes; i++) {
-		val |= data[index+i] << (8*i - offset);
+	for(int i = 0; i <= bytes; i++) {
+		int shift = 8*i - offset;
+		if(shift > 0) {
+			val |= data[index+i] << shift;
+		} else {
+			val |= data[index+i] >> -shift;
+		}
 	}
 
 	val &= ~(~0 << amt); // Cut off additional bits at the left
@@ -118,7 +123,6 @@ unsigned int get_bits(uint8_t* data, int start, int amt) {
  * @param val   Bits to insert
  * @param start Start of insert
  * @param amt   Number of bits
- * TODO Testing!
  */
 inline
 void set_bits(uint8_t* data, unsigned int val, int start, int amt) {
@@ -134,7 +138,12 @@ void set_bits(uint8_t* data, unsigned int val, int start, int amt) {
 	data[index] |= (val << offset) & 0xFF;
 
 	for(int i = 1; i < bytes; i++) {
-		data[index+i] = val >> (8*i - offset);
+		int shift = 8*i - offset;
+		if(shift > 0) {
+			data[index+i] = val >> shift;
+		} else {
+			data[index+i] = val << -shift;
+		}
 	}
 
 	uint8_t lb_mask = ~0 << bits;
