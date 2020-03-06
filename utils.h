@@ -134,11 +134,12 @@ void set_bits(uint8_t* data, unsigned int val, int start, int amt) {
 	data[index] |= (val << offset) & 0xFF;
 
 	for(int i = 1; i < bytes; i++) {
-		data[i] = val >> (8*i - offset);
+		data[index+i] = val >> (8*i - offset);
 	}
 
-	data[index+bytes] &= ~(~0 << bits);
-	data[index+bytes] |= val >> (bytes*8 - offset);
+	uint8_t lb_mask = ~0 << bits;
+	data[index+bytes] &= lb_mask;
+	data[index+bytes] |= (val >> (bytes*8 - offset)) & ~lb_mask;
 }
 #endif
 
