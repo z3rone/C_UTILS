@@ -5,6 +5,10 @@
  *      Author: Falk
  */
 
+#include <lwip/udp.h>
+#include <lwip/ip4_addr.h>
+#include <lwip.h>
+
 #ifndef UTILS_UTILS_LWIP_H_
 #define UTILS_UTILS_LWIP_H_
 

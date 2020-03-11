@@ -5,6 +5,8 @@
  *      Author: Falk
  */
 
+#include <math.h>
+
 #ifndef UTILS_UTILS_MATH_H_
 #define UTILS_UTILS_MATH_H_
 

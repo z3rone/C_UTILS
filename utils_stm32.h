@@ -5,6 +5,9 @@
  *      Author: Falk
  */
 
+#include <main.h>
+#include <math.h>
+
 #ifndef UTILS_UTILS_STM32_H_
 #define UTILS_UTILS_STM32_H_
 
