@@ -4,6 +4,8 @@
  *  Created on: 11 Mar 2020
  *      Author: Falk
  */
+#include <sys/types.h>
+#include <stdlib.h>
 
 #ifndef UTILS_UTILS_BINARY_H_
 #define UTILS_UTILS_BINARY_H_
