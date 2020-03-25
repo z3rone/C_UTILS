@@ -65,7 +65,7 @@ unsigned int get_bits(uint8_t* data, int start, int amt) {
  * @param amt   Number of bits
  */
 inline
-void set_bits(uint8_t* data, unsigned int val, int start, int amt) {
+void set_bits_lsbf(uint8_t* data, unsigned int val, int start, int amt) {
 	div_t begin = div(start, 8);
 	int index = begin.quot;
 	int offset = begin.rem;
@@ -89,6 +89,18 @@ void set_bits(uint8_t* data, unsigned int val, int start, int amt) {
 	uint8_t lb_mask = ~0 << bits;
 	data[index+bytes] &= lb_mask;
 	data[index+bytes] |= (val >> (bytes*8 - offset)) & ~lb_mask;
+}
+
+/**
+ * @brief Inserts bit sequence from byte array.
+ * @param data  Byte array
+ * @param val   Bits to insert
+ * @param start Start of insert
+ * @param amt   Number of bits
+ */
+inline
+void set_bits_msbf(uint8_t* data, unsigned int val, int start, int amt) {
+	/* TODO */
 }
 
 #endif /* UTILS_UTILS_BINARY_H_ */
