@@ -17,6 +17,16 @@ unsigned int del_bits(uint val, uint offset, uint len) {
 	return val & ~mask;
 }
 
+inline
+void change_byte_order(uint8_t data[], int len) {
+	int last = len-1;
+	for(int i = 0; i < (int)(len/2); i++) {
+		uint8_t tmp = data[i];
+		data[i] = data[last-i];
+		data[last-i] = tmp;
+	}
+}
+
 /**
  * @brief Extracts bit sequence from byte array.
  * @param data  Byte array
