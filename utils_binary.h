@@ -64,7 +64,7 @@ unsigned int get_bits(uint8_t* data, int start, int amt) {
  * @param start Start of insert
  * @param amt   Number of bits
  */
-inline
+static inline
 void set_bits_lsbf(uint8_t* data, unsigned int val, int start, int amt) {
 	div_t begin = div(start, 8);
 	int index = begin.quot;
