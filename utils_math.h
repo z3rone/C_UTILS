@@ -23,7 +23,7 @@ unsigned int abs(int i){
 /**
  * @brief Linear regression.
  */
-inline
+static inline
 int lin_reg(int a, int b, int dx, int x) {
 	if(x == 0) return a;
 	if(x >= dx) return b;
@@ -39,7 +39,7 @@ int lin_reg(int a, int b, int dx, int x) {
  * @param i number
  * @param d divider
  */
-inline
+static inline
 int mod_iter(int i, int d) {
 	while(i >= d) {
 		i -= d;
@@ -48,7 +48,7 @@ int mod_iter(int i, int d) {
 	return i;
 }
 
-inline
+static inline
 int limit_i(int x, int min, int max) {
 	if(x < min) return min;
 	if(x > max) return max;

@@ -10,7 +10,7 @@
 #ifndef UTILS_UTILS_BINARY_H_
 #define UTILS_UTILS_BINARY_H_
 
-inline
+static inline
 unsigned int del_bits(uint val, uint offset, uint len) {
 	uint mask = ~0 << offset;      // ...11110000...
 	mask &= ~(~0 << (offset+len)); // ...11110000... & ...01111111... --> ...01110000...
@@ -24,7 +24,7 @@ unsigned int del_bits(uint val, uint offset, uint len) {
  * @param amt   Number of bits
  * @return Bit sequence
  */
-inline
+static inline
 unsigned int get_bits(uint8_t* data, int start, int amt) {
 	div_t begin = div(start, 8);
 	int index = begin.quot;
@@ -54,7 +54,7 @@ unsigned int get_bits(uint8_t* data, int start, int amt) {
  * @param start Start of insert
  * @param amt   Number of bits
  */
-inline
+static inline
 void set_bits(uint8_t* data, unsigned int val, int start, int amt) {
 	div_t begin = div(start, 8);
 	int index = begin.quot;
