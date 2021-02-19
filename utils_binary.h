@@ -27,6 +27,11 @@ void change_byte_order(uint8_t data[], int len) {
 	}
 }
 
+static inline
+unsigned int get_bits(uint8_t* data, int start, int amt) {
+	return get_bits_lsbf(data, start, amt);
+}
+
 /**
  * @brief Extracts bit sequence from byte array.
  * @param data  Byte array
@@ -35,7 +40,7 @@ void change_byte_order(uint8_t data[], int len) {
  * @return Bit sequence
  */
 static inline
-unsigned int get_bits(uint8_t* data, int start, int amt) {
+unsigned int get_bits_lsbf(uint8_t* data, int start, int amt) {
 	div_t begin = div(start, 8);
 	int index = begin.quot;
 	int offset = begin.rem;
@@ -45,6 +50,36 @@ unsigned int get_bits(uint8_t* data, int start, int amt) {
 
 	int val = 0;
 	for(int i = 0; i <= bytes; i++) {
+		int shift = 8*i - offset;
+		if(shift > 0) {
+			val |= data[index+i] << shift;
+		} else {
+			val |= data[index+i] >> -shift;
+		}
+	}
+
+	val &= ~(~0 << amt); // Cut off additional bits at the left
+	return val;
+}
+
+/**
+ * @brief Extracts bit sequence from byte array.
+ * @param data  Byte array
+ * @param start Start of bit section
+ * @param amt   Number of bits
+ * @return Bit sequence
+ */
+static inline
+unsigned int get_bits_msbf(uint8_t* data, int start, int amt) {
+	div_t begin = div(start, 8);
+	int index = begin.quot;
+	int offset = begin.rem;
+
+	div_t end = div(amt + offset, 8);
+	int bytes = end.quot;
+
+	int val = 0;
+	for(int i = bytes; i <= 0; i--) {
 		int shift = 8*i - offset;
 		if(shift > 0) {
 			val |= data[index+i] << shift;
