@@ -17,7 +17,7 @@ unsigned int del_bits(uint val, uint offset, uint len) {
 	return val & ~mask;
 }
 
-inline
+static inline
 void change_byte_order(uint8_t data[], int len) {
 	int last = len-1;
 	for(int i = 0; i < (int)(len/2); i++) {
@@ -98,7 +98,7 @@ void set_bits_lsbf(uint8_t* data, unsigned int val, int start, int amt) {
  * @param start Start of insert
  * @param amt   Number of bits
  */
-inline
+static inline
 void set_bits_msbf(uint8_t* data, unsigned int val, int start, int amt) {
 	/* TODO */
 }

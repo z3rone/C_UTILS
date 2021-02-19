@@ -11,7 +11,7 @@
 #ifndef UTILS_UTILS_STM32_H_
 #define UTILS_UTILS_STM32_H_
 
-inline
+static inline
 void __timer_set(TIM_HandleTypeDef* tim, uint32_t ch, double frq, double dty) {
 	__IO uint16_t autoload = round(1000000.0/(double)frq);
 	__IO uint16_t compare  = round(((double)dty/100.0)*autoload);
@@ -26,7 +26,7 @@ void __timer_set(TIM_HandleTypeDef* tim, uint32_t ch, double frq, double dty) {
 #define DEV_ID_BASE_F4 ((uint32_t*)0x1FFF7A10)
 #define DEV_ID_BASE_F7 ((uint32_t*)0x1FF0F420)
 
-inline
+static inline
 uint32_t get_DevID_32(uint32_t* base) {
 	uint32_t id = 0;
 	for(int i = 0; i < 3; i++) {
@@ -35,7 +35,7 @@ uint32_t get_DevID_32(uint32_t* base) {
 	return id;
 }
 
-inline
+static inline
 uint16_t get_DevID_16(uint32_t* base) {
 	uint32_t id32 = get_DevID_32(base);
 	uint16_t id16 = 0;
@@ -45,7 +45,7 @@ uint16_t get_DevID_16(uint32_t* base) {
 	return id16;
 }
 
-inline
+static inline
 uint8_t get_DevID_8(uint32_t* base) {
 	uint16_t id16 = get_DevID_16(base);
 	uint8_t id8 = 0;
@@ -55,7 +55,7 @@ uint8_t get_DevID_8(uint32_t* base) {
 	return id8;
 }
 
-inline
+static inline
 uint8_t get_DevID_4(uint32_t* base) {
 	uint32_t id8 = get_DevID_8(base);
 	uint16_t id4 = 0;
